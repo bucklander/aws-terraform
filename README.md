@@ -4,7 +4,7 @@ An boiler-plate example Terraform enviornment for AWS. Meant for educational/tra
 
 Creates a VPC, IGW, public subnet, private subnets (across two AZs), public and private route tables, private compute instance, and a public bastion instance.
 
-_Note: Requires Terraform 0.13 or higher._
+_Note: Requires [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html) and Terraform 0.13 or higher._
 
 ## Build & Run Instructions
 ```
