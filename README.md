@@ -1,8 +1,10 @@
 # aws-terraform
 
-An example Terraform enviornment for AWS. Meant for educational/training purposes only. 
+An boiler-plate example Terraform enviornment for AWS. Meant for educational/training purposes only. 
 
-Creates a VPC, public subnet, private subnets, route tables, private compute instance and a public bastion instance.
+Creates a VPC, IGW, public subnet, private subnets (across two AZs), public and private route tables, private compute instance, and a public bastion instance.
+
+_Note: Requires Terraform 0.13 or higher._
 
 ## Build & Run Instructions
 ```
