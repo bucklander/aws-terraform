@@ -1,6 +1,6 @@
 # aws-terraform
 
-An boiler-plate example Terraform enviornment for AWS. Meant for educational/training purposes only. 
+A Terraform boiler-plate example environment for AWS. Meant for educational/training purposes only. 
 
 Creates a VPC, IGW, public subnet, private subnets (across two AZs), public and private route tables, private compute instance, and a public bastion instance.
 
