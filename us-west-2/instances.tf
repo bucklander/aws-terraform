@@ -29,13 +29,14 @@ resource "aws_instance" "foo" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t2.micro"
   key_name      = aws_key_pair.buck-mbair.id
-
+  user_data     = "apt-get install apache2 -y;systemctl start apache2"
   network_interface {
     network_interface_id = aws_network_interface.foo.id
     device_index         = 0
   }
   tags = {
-    Name = "foo"
+    Name        = "foo"
+    Environment = "development"
   }
 }
 
@@ -63,10 +64,11 @@ resource "aws_instance" "bastion" {
   instance_type = "t2.micro"
   key_name      = aws_key_pair.buck-mbair.id
 
-  subnet_id       = aws_subnet.subnet-a.id
-  security_groups = [aws_security_group.allow_ssh.id]
+  subnet_id              = aws_subnet.subnet-a.id
+  vpc_security_group_ids = [aws_security_group.allow_ssh.id]
 
   tags = {
-    Name = "bastion"
+    Name        = "bastion"
+    Environment = "development"
   }
 }

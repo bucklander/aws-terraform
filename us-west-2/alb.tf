@@ -1,4 +1,4 @@
-## App LB
+## App LB Example
 
 resource "aws_lb" "alb-int-example" {
   load_balancer_type = "application"
@@ -6,21 +6,17 @@ resource "aws_lb" "alb-int-example" {
   internal           = true
   security_groups    = [aws_security_group.allow_http.id, aws_security_group.allow_tls.id]
   subnet_mapping {
-    subnet_id            = aws_subnet.subnet-b.id
-    #private_ipv4_address = "10.12.2.30"
+    subnet_id = aws_subnet.subnet-b.id
+    #private_ipv4_address = "10.12.2.30" # contrary to TF docs, this doesn't seem allowed by the provider
   }
   subnet_mapping {
-    subnet_id            = aws_subnet.subnet-c.id
-    #private_ipv4_address = "10.12.3.30"
+    subnet_id = aws_subnet.subnet-c.id
+    #private_ipv4_address = "10.12.3.30" # contrary to TF docs, this doesn't seem allowed by the provider
   }
-  enable_deletion_protection = true
-  #access_logs {
-  #  bucket  = aws_s3_bucket.alb-logs-d82h.bucket
-  #  prefix  = "alb-int"
-  #  enabled = true
-  #}
+  enable_deletion_protection = false
+
   tags = {
-    Environment = "production"
+    Environment = "development"
   }
 }
 

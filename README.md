@@ -10,7 +10,7 @@ _Note: Requires [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-c
 ```
 aws configure
 git clone git@github.com:bucklander/aws-terraform.git
-cd aws-terraform/
+cd aws-terraform/us-west-2/
 terraform plan
 terraform apply
 ```
