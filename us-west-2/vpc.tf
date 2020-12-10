@@ -7,16 +7,19 @@ resource "aws_vpc" "main-vpc" {
   }
 }
 
+## Public Subnet Resources
 resource "aws_internet_gateway" "main" {
   vpc_id = aws_vpc.main-vpc.id
 }
 
-resource "aws_route_table" "rtb-pri" {
-  vpc_id = aws_vpc.main-vpc.id
+resource "aws_eip" "cloud-nat" {
+  vpc        = true
+  depends_on = [aws_internet_gateway.main]
+}
 
-  tags = {
-    Name = "private"
-  }
+resource "aws_nat_gateway" "gw" {
+  allocation_id = aws_eip.cloud-nat.id
+  subnet_id     = aws_subnet.subnet-a.id
 }
 
 resource "aws_route_table" "rtb-pub" {
@@ -40,6 +43,21 @@ resource "aws_subnet" "subnet-a" {
 resource "aws_route_table_association" "a" {
   subnet_id      = aws_subnet.subnet-a.id
   route_table_id = aws_route_table.rtb-pub.id
+}
+
+## Private Subnet Resources
+
+resource "aws_route_table" "rtb-pri" {
+  vpc_id = aws_vpc.main-vpc.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.gw.id
+  }
+
+  tags = {
+    Name = "private"
+  }
 }
 
 resource "aws_subnet" "subnet-b" {

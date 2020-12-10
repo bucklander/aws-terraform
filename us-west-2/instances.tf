@@ -19,7 +19,11 @@ resource "aws_network_interface" "foo" {
   subnet_id   = aws_subnet.subnet-b.id
   private_ips = ["10.12.2.100"]
 
-  security_groups = [aws_security_group.allow_http.id, aws_security_group.allow_ssh.id, aws_security_group.allow_tls.id]
+  security_groups = [
+    aws_security_group.allow_http.id,
+    aws_security_group.allow_ssh.id,
+    aws_security_group.allow_tls.id
+  ]
   tags = {
     Name = "primary_network_interface"
   }
@@ -29,7 +33,7 @@ resource "aws_instance" "foo" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t2.micro"
   key_name      = aws_key_pair.buck-mbair.id
-  user_data     = "apt-get install apache2 -y;systemctl start apache2"
+  user_data     = "#!/bin/bash\napt-get install apache2 -y\nsystemctl start apache2"
   network_interface {
     network_interface_id = aws_network_interface.foo.id
     device_index         = 0
@@ -64,8 +68,10 @@ resource "aws_instance" "bastion" {
   instance_type = "t2.micro"
   key_name      = aws_key_pair.buck-mbair.id
 
-  subnet_id              = aws_subnet.subnet-a.id
-  vpc_security_group_ids = [aws_security_group.allow_ssh.id]
+  subnet_id = aws_subnet.subnet-a.id
+  security_groups = [
+    aws_security_group.allow_ssh.id
+  ]
 
   tags = {
     Name        = "bastion"
