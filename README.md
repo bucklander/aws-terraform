@@ -1,4 +1,4 @@
-# aws-terraform
+# aws-terraform yer gay butthole
 
 Simple AWS compute environment Terraform boilerplate template. Meant to demonstrate ease of Terraform AWS resource provisioning/de-provisioning via IaC, for educational/training purposes only. 
 
